@@ -34,7 +34,6 @@
 package eu.toop.tooppackagetracker;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -54,6 +53,11 @@ import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.helger.commons.http.CHttpHeader;
+import com.helger.commons.mime.CMimeType;
+import com.helger.config.ConfigFactory;
+import com.helger.config.IConfig;
 
 @WebServlet ("/debug-consume")
 public class DebugConsumeServlet extends HttpServlet
@@ -85,8 +89,9 @@ public class DebugConsumeServlet extends HttpServlet
 
     LOGGER.info ("DebugConsumeServlet " + aReq.getRequestURL () + "?" + aReq.getQueryString ());
 
+    final IConfig aConfig = ConfigFactory.getDefaultConfig ();
     final Map <String, Object> aProps = new LinkedHashMap <> ();
-    aProps.put (ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:7073");
+    aProps.put (ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, aConfig.getAsString ("kafka.bootstrap-servers"));
     aProps.put (ConsumerConfig.GROUP_ID_CONFIG, KafkaConsumerManager.TOPIC_GROUP_ID);
     aProps.put (ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
     aProps.put (ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
@@ -110,7 +115,7 @@ public class DebugConsumeServlet extends HttpServlet
       topics.remove ("__consumer_offsets");
       final List <String> aSortedTopics = new ArrayList <> (topics.size ());
       aSortedTopics.addAll (topics.keySet ());
-      aSortedTopics.sort ( (o1, o2) -> o1.compareToIgnoreCase (o2));
+      aSortedTopics.sort (String::compareToIgnoreCase);
 
       aSB.append ("<h1>All " + aSortedTopics.size () + " topics</h1><ul>");
       for (final String sTopic : aSortedTopics)
@@ -128,7 +133,7 @@ public class DebugConsumeServlet extends HttpServlet
         aSB.append ("<h1>Consumed records (" + nRepeats + " repeats; " + nTimeout + " ms)</h1>");
         for (int i = 0; i < nRepeats; ++i)
         {
-          final ConsumerRecords <String, String> records = aConsumer.poll (Duration.ofMillis (nTimeout));
+          final ConsumerRecords <String, String> records = aConsumer.poll (nTimeout);
           for (final ConsumerRecord <String, String> record : records)
           {
             final String sRecord = "Consuming from topic = " +
@@ -154,7 +159,7 @@ public class DebugConsumeServlet extends HttpServlet
 
     LOGGER.info ("DebugConsumeServlet end");
 
-    aResp.setHeader ("Content-Type", "text/html");
+    aResp.setHeader (CHttpHeader.CONTENT_TYPE, CMimeType.TEXT_HTML.getAsString ());
     aResp.getWriter ().println (aSB.toString ());
     aResp.getWriter ().close ();
   }
