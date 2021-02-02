@@ -45,6 +45,7 @@ public class ToopPackageTrackerApplication extends SpringBootServletInitializer
 {
   public static void main (final String [] args)
   {
+//    System.setProperty("javax.xml.bind.JAXBContextFactory", "com.sun.xml.bind.v2.ContextFactory");
     SpringApplication.run (ToopPackageTrackerApplication.class, args);
   }
 

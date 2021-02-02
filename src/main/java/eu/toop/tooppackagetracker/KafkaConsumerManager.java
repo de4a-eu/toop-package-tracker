@@ -42,7 +42,7 @@ import com.helger.commons.annotation.ReturnsMutableObject;
 
 public final class KafkaConsumerManager
 {
-  public static final String TOPIC_GROUP_ID = "toop-group";
+  public static final String TOPIC_GROUP_ID = "de4a-group";
 
   private static final Map <String, Receiver> kafkaConsumers = new HashMap <> ();
 

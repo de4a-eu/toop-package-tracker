@@ -66,6 +66,8 @@ public class Receiver
   {
     final IConfig aConfig = ConfigFactory.getDefaultConfig ();
     PROPS.put (ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, aConfig.getAsString ("kafka.bootstrap-servers"));
+    // This is different from application.properties and I don't know why
+    // localhost works here, but not in application.properties
     PROPS.put (ConsumerConfig.GROUP_ID_CONFIG, KafkaConsumerManager.TOPIC_GROUP_ID);
     PROPS.put (ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
     PROPS.put (ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
