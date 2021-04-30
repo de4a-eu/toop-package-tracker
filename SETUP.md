@@ -17,9 +17,9 @@ This environment variable is a comma separated list with the configured listener
 ```
 KAFKA_LISTENERS=<arbitrary name>://<hostname or ip>:<port>,...
 ```
-**arbitrary name** can be anything you choose as long as it is unique, this is what you will reference in other parameters
-**hostname or ip** needs to point to a hostname or ip accessible in the docker environment. if you omit this it basically means **localhost**
-**port** is the port that kafka will listen to on the supplied hostname or ip
+- **arbitrary name** can be anything you choose as long as it is unique, this is what you will reference in other parameters
+- **hostname or ip** needs to point to a hostname or ip accessible in the docker environment. if you omit this it basically means **localhost**
+- **port** is the port that kafka will listen to on the supplied hostname or ip
 
 In a Docker environment where the Kafka should be accessible from outside of Docker (ie the Internet...) you will most likely need two listeners, one accessible from inside the Docker environment and one accessible from outside of Docker. In the supplied [docker-compose.yml](docker/docker-compose.yml) they are named INTERNAL and EXTERNAL respectivley
 
@@ -74,6 +74,6 @@ In your PackageTracker you should now see 5 messages showing up after each other
 
 ## Resources
 
-[Confluents REST Docker image](https://docs.confluent.io/platform/current/tutorials/examples/clients/docs/rest-proxy.html)
-[Confluent detailed explanation of Kafka LISTENERS](https://www.confluent.io/blog/kafka-listeners-explained/)
+- [Confluents REST Docker image](https://docs.confluent.io/platform/current/tutorials/examples/clients/docs/rest-proxy.html)
+- [Confluent detailed explanation of Kafka LISTENERS](https://www.confluent.io/blog/kafka-listeners-explained/)
 
