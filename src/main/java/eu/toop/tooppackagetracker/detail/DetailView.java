@@ -161,15 +161,15 @@ public class DetailView extends VerticalLayout implements View, IReceiverListene
   {
     if(message == null)
       return null;
-    if(message.startsWith("[SUCCESS]"))
+    if(message.contains("[SUCCESS]"))
       return "successLogLabel";
-    else if(message.startsWith("[INFO]"))
+    else if(message.contains("[INFO]"))
       return "infoLogLabel";
-    else if(message.startsWith("[WARN]"))
+    else if(message.contains("[WARN]"))
       return "warnLogLabel";
-    else if(message.startsWith("[ERROR]"))
+    else if(message.contains("[ERROR]"))
       return "errorLogLabel";
-    else if(message.startsWith("[FATAL_ERROR]"))
+    else if(message.contains("[FATAL_ERROR]"))
       return "fatalErrorLogLabel";
     return null;
   }
