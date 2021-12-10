@@ -40,7 +40,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>1.11.3</version>
+    <version>1.11.4</version>
   </parent>
   <groupId>eu.toop</groupId>
   <artifactId>toop-package-tracker</artifactId>
@@ -85,9 +85,9 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-commons-parent-pom</artifactId>
-        <version>9.5.4</version>
+        <version>10.1.5</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -118,7 +118,7 @@
     </dependency>
     
     <dependency>
-      <groupId>com.helger</groupId>
+      <groupId>com.helger.commons</groupId>
       <artifactId>ph-config</artifactId>
     </dependency>
 
